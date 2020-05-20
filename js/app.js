@@ -1,6 +1,9 @@
 const apiKey = `32fea0d9f2d9bfc792de0894cfdd9a51`;
 let lat, long;
 const currentConditions = document.querySelector('.current-conditions');
+const forecastEleTag = document.querySelector('.forecast');
+let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 
 navigator.geolocation.getCurrentPosition(position => {
   lat = position.coords.latitude;
@@ -16,18 +19,61 @@ navigator.geolocation.getCurrentPosition(position => {
       currentConditions.insertAdjacentHTML('afterbegin', 
       `<h2>Current Conditions</h2>
           <img src="http://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png"/>
-        <div class="current">
+          <div class="current">
           <div class="temp">${(celcius).toFixed(0)}℃</div>
-          <div class="condition">${currentWeatherData.weather[0].main}
-        </div>`);
+          <div class="condition">${currentWeatherData.weather[0].description}
+        </div>`
+        );
 
-      return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
         .then(resp => resp.json())
         .then(weatherForecast => {
-          weatherForecast;
-        });
-    });
+          let weatherArray = (weatherForecast.list);
+          weatherArray.forEach(dayForecast => {
+            let noonTime = (dayForecast.dt_txt);
+            let date = new Date(noonTime)
+            
+            if(date.toLocaleTimeString() === "12:00:00 PM") {
+              
+              forecastEleTag.insertAdjacentHTML('beforeend', `
+              <div class="day">
+                <h3>${weekdays[date.getDay()]}</h3>
+                <img src="http://openweathermap.org/img/wn/01d@2x.png"/>
+                <div class="description">clear sky</div>
+                <div class="temp">
+              <span class="high">11℃</span>/<span class="low">-3℃</span>
+            </div>
+          </div>`
+          )}
+        })
+      })
+    }); 
 });
 
+// weatherCast (data => {
+  
+// })
 
 
+
+function convName (time) {
+  let newDate = new Date(time);
+  return weekdays[newDate.getDay()];
+}
+
+
+
+
+// newArray = []
+
+// weatherForecast.list.forEach(x => {
+//   
+
+
+//   if (time.includes(time.substring(0, 10))) {
+//     newArray.push(convName(time))
+//     console.log(x)
+//     console.log(newArray);
+//   }
+
+// })
