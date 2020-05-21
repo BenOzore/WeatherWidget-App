@@ -47,7 +47,9 @@ function fiveDaysForecast(lat, long) {
 
       weatherArray.forEach((dayForecast) => {
         let date = new Date(dayForecast.dt_txt);
-
+        let celciusHighTemp = (dayForecast.main.temp_max - 273);
+        let celciusLowTemp = (dayForecast.main.temp_min - 273);
+        
         if (date.toLocaleTimeString() === "12:00:00 PM") {
           forecastEleTag.insertAdjacentHTML(
             "beforeend",
@@ -56,8 +58,7 @@ function fiveDaysForecast(lat, long) {
               <img src="http://openweathermap.org/img/wn/${dayForecast.weather[0].icon}@2x.png"/>
               <div class="description">${dayForecast.weather[0].description}</div>
               <div class="temp">
-            <span class="high">℃</span> / 
-            <span class="low">℃</span>
+            <span class="high">${(celciusHighTemp).toFixed(0)}℃</span>/<span class="low">${(celciusLowTemp).toFixed(0)}℃</span>
           </div>
         </div>`
         );
