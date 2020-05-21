@@ -48,25 +48,20 @@ function fiveDaysForecast(lat, long) {
       weatherArray.forEach((dayForecast) => {
         let date = new Date(dayForecast.dt_txt);
 
-        const highForecastTemp = dayForecast.main.temp_max;
-        const lowForecastTemp = dayForecast.main.temp_min;
-        const highTempCelcius = highForecastTemp - 273;
-        const lowTempCelcius = lowForecastTemp - 273;
         if (date.toLocaleTimeString() === "12:00:00 PM") {
           forecastEleTag.insertAdjacentHTML(
             "beforeend",
-            `
-              <div class="day">
-                <h3>${weekdays[date.getDay()]}</h3>
-                <img src="http://openweathermap.org/img/wn/${dayForecast.weather[0].icon}@2x.png"/>
-                <div class="description">${dayForecast.weather[0].description}</div>
-                <div class="temp">
-              <span class="high">℃</span> / 
-              <span class="low">℃</span>
-            </div>
-          </div>`
-          );
-        }
-      });
+            `<div class="day">
+              <h3>${weekdays[date.getDay()]}</h3>
+              <img src="http://openweathermap.org/img/wn/${dayForecast.weather[0].icon}@2x.png"/>
+              <div class="description">${dayForecast.weather[0].description}</div>
+              <div class="temp">
+            <span class="high">℃</span> / 
+            <span class="low">℃</span>
+          </div>
+        </div>`
+        );
+      }
     });
+  });
 }
