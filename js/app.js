@@ -30,16 +30,16 @@ navigator.geolocation.getCurrentPosition(position => {
         .then(weatherForecast => {
           let weatherArray = (weatherForecast.list);
           weatherArray.forEach(dayForecast => {
+            
             let noonTime = (dayForecast.dt_txt);
             let date = new Date(noonTime)
-            
             if(date.toLocaleTimeString() === "12:00:00 PM") {
-              
+              console.log(dayForecast)
               forecastEleTag.insertAdjacentHTML('beforeend', `
               <div class="day">
                 <h3>${weekdays[date.getDay()]}</h3>
-                <img src="http://openweathermap.org/img/wn/01d@2x.png"/>
-                <div class="description">clear sky</div>
+                <img src="http://openweathermap.org/img/wn/${dayForecast.weather[0].icon}@2x.png"/>
+                <div class="description">${dayForecast.weather[0].description}</div>
                 <div class="temp">
               <span class="high">11℃</span>/<span class="low">-3℃</span>
             </div>
@@ -50,30 +50,3 @@ navigator.geolocation.getCurrentPosition(position => {
     }); 
 });
 
-// weatherCast (data => {
-  
-// })
-
-
-
-function convName (time) {
-  let newDate = new Date(time);
-  return weekdays[newDate.getDay()];
-}
-
-
-
-
-// newArray = []
-
-// weatherForecast.list.forEach(x => {
-//   
-
-
-//   if (time.includes(time.substring(0, 10))) {
-//     newArray.push(convName(time))
-//     console.log(x)
-//     console.log(newArray);
-//   }
-
-// })
