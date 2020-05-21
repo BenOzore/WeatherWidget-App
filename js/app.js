@@ -20,9 +20,7 @@ navigator.geolocation.getCurrentPosition((position) => {
 });
 
 function currentWeather(lat, long) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`
-  )
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`)
     .then((resp) => resp.json())
     .then((currentWeatherData) => {
       const currentWeatherTemp = currentWeatherData.main.temp;
@@ -42,13 +40,10 @@ function currentWeather(lat, long) {
 }
 
 function fiveDaysForecast(lat, long) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`
-  )
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
     .then((resp) => resp.json())
     .then((weatherForecast) => {
       const weatherArray = weatherForecast.list;
-      console.log(weatherForecast.list);
 
       weatherArray.forEach((dayForecast) => {
         let date = new Date(dayForecast.dt_txt);
@@ -66,8 +61,8 @@ function fiveDaysForecast(lat, long) {
                 <img src="http://openweathermap.org/img/wn/${dayForecast.weather[0].icon}@2x.png"/>
                 <div class="description">${dayForecast.weather[0].description}</div>
                 <div class="temp">
-              <span class="high">${highTempCelcius.toFixed(0)}℃</span> / 
-              <span class="low">${lowTempCelcius.toFixed(0)}℃</span>
+              <span class="high">℃</span> / 
+              <span class="low">℃</span>
             </div>
           </div>`
           );
