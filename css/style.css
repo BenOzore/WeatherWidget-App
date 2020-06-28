@@ -4,6 +4,7 @@
 
 body {
   font-family: verdana;
+  background-color: #a0a0a0;
 }
 
 main {
@@ -73,7 +74,7 @@ h2, h3 {
 .description {
   margin-bottom: 10px;
   margin-top: -10px;
-  color: #727272;
+  color: #000000;
 }
 
 .temp span {
